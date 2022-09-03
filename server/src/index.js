@@ -1,31 +1,17 @@
-const { Server, AuthModule, logger } = require('web-soft-server');
+const fs = require('fs');
+const { Server, logger } = require('web-soft-server');
 const modules = require('./modules');
 
-let server = {};
+const key = fs.readFileSync('./certs/localhost.key');
+const cert = fs.readFileSync('./certs/localhost.crt');
+
 const start = async () => {
   try {
-    server = new Server({ ...modules, auth: AuthModule }, { host: 'localhost', port: 80, cors: false });
+    const server = new Server({ host: '0.0.0.0', port: 443, cors: false, key, cert, secure: true });
+    server.start(modules);
   } catch (error) {
     logger.fatal(error);
   }
 };
-
-process.on('uncaughtException', async (error) => {
-  logger.fatal(error);
-  await server.close();
-  process.exit(1);
-});
-
-process.on('unhandledRejection', async (reason, p) => {
-  logger.fatal(new Error(`Reason: ${reason}. Unhandled Rejection at Promise. Promise: ${p}`));
-  await server.close();
-  process.exit(1);
-});
-
-process.on('SIGTERM', async () => {
-  logger.warn('Exited witn SIGTERM signal.');
-  await server.close();
-  process.exit(1);
-});
 
 start();

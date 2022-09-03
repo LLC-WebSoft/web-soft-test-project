@@ -32,7 +32,7 @@
     "lint": "eslint --ignore-path .gitignore .",
     "fix": "eslint --fix --ignore-path .gitignore .",
     "test": "npm run lint && jest test",
-    "types": "web-soft-client types --path ./src/api --port 80 --host localhost",
+    "types": "web-soft-client types --path ./src/api --port 443 --host localhost",
     "api": "web-soft-client api --path ./src/api",
     "dev": "webpack serve"
   },
@@ -50,6 +50,6 @@
     "webpack-dev-server": "^4.7.3"
   },
   "dependencies": {
-    "web-soft-client": "^1.0.1"
+    "web-soft-client": "^1.1.0"
   }
 }

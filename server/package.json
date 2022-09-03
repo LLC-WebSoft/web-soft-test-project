@@ -23,7 +23,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon --signal SIGTERM --exec \"node ./src/index.js\"",
-    "dev-docker": "docker compose up -d && npm run dev",
+    "dev-docker": "docker volume create pgdata && docker compose up -d && npm run dev",
     "lint": "eslint --ignore-path .gitignore .",
     "fix": "eslint --fix --ignore-path .gitignore ."
   },
@@ -36,6 +36,6 @@
     "prettier": "2.5.1"
   },
   "dependencies": {
-    "web-soft-server": "^1.0.2"
+    "web-soft-server": "file:C:\\LocalPackages\\web-soft-server-2.0.0.tgz"
   }
 }
